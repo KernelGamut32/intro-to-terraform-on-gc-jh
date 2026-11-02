@@ -1,0 +1,14 @@
+# Copy to labs/L01-build-and-parameterize/backend.tf and fill in your values.
+#
+# Rules that apply to every backend block:
+#   - One backend block per configuration, inside the terraform block.
+#   - No variables, locals, or data sources may be referenced here.
+#   - Changing anything here requires terraform init again.
+#   - The bucket must already exist. Terraform does not create it.
+
+terraform {
+  backend "gcs" {
+    bucket = "BUCKET_NAME" # your assigned state bucket, for example jh-tf-state-lab-07-4f2a
+    prefix = "labs/LAB_ID" # your assigned prefix, for example labs/lab-07
+  }
+}

@@ -1,0 +1,7 @@
+# Copy to terraform.tfvars and replace the values. terraform.tfvars is
+# ignored by Git because it is specific to your lab assignment.
+
+project_id                = "jh-tf-lab-07"
+region                    = "us-central1"
+zone                      = "us-central1-a"
+app_service_account_email = "ledgerlite-app@jh-tf-lab-07.iam.gserviceaccount.com"

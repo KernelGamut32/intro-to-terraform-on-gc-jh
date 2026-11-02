@@ -1,0 +1,78 @@
+output "instance_name" {
+  description = "Name of the application instance."
+  value       = google_compute_instance.app.name
+}
+
+output "instance_zone" {
+  description = "Zone of the application instance."
+  value       = google_compute_instance.app.zone
+}
+
+output "internal_ip" {
+  description = "Internal IP address of the application instance."
+  value       = google_compute_instance.app.network_interface[0].network_ip
+}
+
+output "network_name" {
+  description = "Name of the VPC network."
+  value       = google_compute_network.main.name
+}
+
+output "subnet_name" {
+  description = "Name of the application subnet."
+  value       = google_compute_subnetwork.app.name
+}
+
+output "image_used" {
+  description = "Exact image resolved from the family at plan time."
+  value       = data.google_compute_image.app.name
+}
+
+output "ssh_command" {
+  description = "Connect through IAP TCP forwarding; no external IP is needed."
+  value       = "gcloud compute ssh ${google_compute_instance.app.name} --zone ${var.zone} --project ${var.project_id} --tunnel-through-iap"
+}
+
+output "app_version" {
+  description = "Application version rendered into the startup page."
+  value       = var.app_version
+}
+
+output "app_port" {
+  description = "Port the application listens on."
+  value       = var.app_port
+}
+
+output "project_id" {
+  description = "Lab project ID, exposed for helper scripts."
+  value       = var.project_id
+}
+
+output "tunnel_command" {
+  description = "Open an IAP tunnel to the app port, then browse to http://localhost:PORT."
+  value       = "gcloud compute start-iap-tunnel ${google_compute_instance.app.name} ${var.app_port} --local-host-port=localhost:${var.app_port} --zone ${var.zone} --project ${var.project_id}"
+}
+
+# A single structured output that scripts/inventory.sh turns into a report.
+# Contains identifiers only; nothing here is secret.
+output "inventory" {
+  description = "Non-secret inventory of the deployment for handoff and audit."
+  value = {
+    project_id    = var.project_id
+    environment   = var.environment
+    region        = var.region
+    zone          = var.zone
+    network       = google_compute_network.main.name
+    subnet        = google_compute_subnetwork.app.name
+    subnet_cidr   = google_compute_subnetwork.app.ip_cidr_range
+    instance      = google_compute_instance.app.name
+    instance_id   = google_compute_instance.app.instance_id
+    machine_type  = google_compute_instance.app.machine_type
+    internal_ip   = google_compute_instance.app.network_interface[0].network_ip
+    image         = data.google_compute_image.app.name
+    app_version   = var.app_version
+    app_port      = var.app_port
+    firewall_rule = google_compute_firewall.allow_iap.name
+    managed_by    = "terraform"
+  }
+}

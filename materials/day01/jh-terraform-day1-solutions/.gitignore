@@ -1,0 +1,44 @@
+# Terraform working directory, provider binaries, and plugin cache
+.terraform/
+.terraform.tfstate.lock.info
+
+# State is never committed. On Day 1 it moves to the GCS backend (L02).
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Saved plans can contain sensitive values in plaintext.
+*.tfplan
+tfplan
+plan.out
+
+# Per-learner variable values. Commit *.tfvars.example only.
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+
+# Crash logs, override files, and local evidence captures
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+evidence/
+inventory/*.json
+
+# Credentials of any kind. Never commit a service account key.
+*.json.key
+*-key.json
+credentials.json
+.terraformrc
+terraform.rc
+
+# Editor and OS noise
+.vscode/
+.idea/
+.DS_Store
+
+# Keep the dependency lock file committed. It records the selected
+# provider versions so every learner and runner installs the same ones.
+!.terraform.lock.hcl
