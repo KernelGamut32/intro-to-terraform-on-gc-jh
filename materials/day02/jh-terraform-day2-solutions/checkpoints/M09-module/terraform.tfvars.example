@@ -18,3 +18,13 @@ team        = "platform-services"
 labels = {
   cost_center = "cc-4410"
 }
+# Day 2, M08: fleet retired at the end of L04. The typed input, the locals,
+# and the for_each resource stay in the configuration; an empty map simply
+# produces zero instances.
+instances = {}
+# Day 2, M07: CR-2052 item 3. The first rule restates the default because a
+# value in terraform.tfvars replaces the whole default list.
+allow_rules = [
+  { protocol = "tcp", ports = ["22", "8080"] },
+  { protocol = "tcp", ports = ["9000"] },
+]

@@ -1,0 +1,3 @@
+# The repository ignores *.tfvars because they usually hold per-person
+# values. These what-if files are shared lab material, so keep them.
+!*.tfvars

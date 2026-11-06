@@ -1,0 +1,6 @@
+# Day 2, M07: CR-2052 item 3. The first rule restates the default because a
+# value in terraform.tfvars replaces the whole default list.
+allow_rules = [
+  { protocol = "tcp", ports = ["22", "8080"] },
+  { protocol = "tcp", ports = ["9000"] },
+]

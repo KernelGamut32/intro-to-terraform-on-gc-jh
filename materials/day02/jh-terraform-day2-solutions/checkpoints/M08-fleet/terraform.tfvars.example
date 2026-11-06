@@ -1,0 +1,39 @@
+# Copy to terraform.tfvars and replace the values.
+
+project_id                = "jh-tf-lab-07"
+region                    = "us-central1"
+zone                      = "us-central1-a"
+app_service_account_email = "ledgerlite-app@jh-tf-lab-07.iam.gserviceaccount.com"
+
+# Optional overrides; defaults are declared in variables.tf.
+# name_prefix  = "ledgerlite"
+# machine_type = "e2-small"
+# subnet_cidr  = "10.10.0.0/24"
+# app_port     = 8080
+
+# CR-2041 inputs
+environment = "dev"
+app_version = "1.0.0"
+team        = "platform-services"
+labels = {
+  cost_center = "cc-4410"
+}
+# Day 2, M07: additional instances keyed by role (CR-2052).
+instances = {
+  api = {
+    machine_type = "e2-micro"
+    zone         = "us-central1-a"
+    labels       = { tier = "service" }
+  }
+  batch = {
+    machine_type = "e2-micro"
+    zone         = "us-central1-b"
+    labels       = { tier = "jobs", schedule = "nightly" }
+  }
+}
+# Day 2, M07: CR-2052 item 3. The first rule restates the default because a
+# value in terraform.tfvars replaces the whole default list.
+allow_rules = [
+  { protocol = "tcp", ports = ["22", "8080"] },
+  { protocol = "tcp", ports = ["9000"] },
+]

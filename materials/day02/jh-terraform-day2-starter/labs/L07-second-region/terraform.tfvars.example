@@ -1,0 +1,21 @@
+# Copy to terraform.tfvars and replace the values with the ones on your
+# assignment card. The first four match your primary root.
+
+project_id                = "jh-tf-lab-07"
+app_service_account_email = "ledgerlite-app@jh-tf-lab-07.iam.gserviceaccount.com"
+state_bucket              = "jh-tf-state-lab-07-4f2a"
+primary_state_prefix      = "labs/lab-07"
+
+# Second placement
+region      = "us-east1"
+zone        = "us-east1-b"
+subnet_cidr = "10.20.0.0/24"
+
+# Application settings: keep them the same as the primary root unless the
+# change request says otherwise.
+environment = "dev"
+app_version = "1.0.0"
+team        = "platform-services"
+labels = {
+  cost_center = "cc-4477"
+}

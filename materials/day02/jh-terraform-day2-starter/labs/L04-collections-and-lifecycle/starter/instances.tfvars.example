@@ -1,0 +1,13 @@
+# Day 2, M07: additional instances keyed by role (CR-2052).
+instances = {
+  api = {
+    machine_type = "e2-micro"
+    zone         = "us-central1-a"
+    labels       = { tier = "service" }
+  }
+  batch = {
+    machine_type = "e2-micro"
+    zone         = "us-central1-b"
+    labels       = { tier = "jobs", schedule = "nightly" }
+  }
+}
